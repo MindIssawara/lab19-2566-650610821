@@ -55,20 +55,19 @@ export default function Home() {
   }, [token]);
 
   const login = async () => {
+    setLoadingLogin(true);
     try {
-      setLoadingLogin(true);
       const resp = await axios.post("/api/user/login", { username, password });
       setToken(resp.data.token);
       setAuthenUsername(resp.data.username);
       setUsername("");
       setPassword("");
-      setLoadingLogin(false);
     } catch (error) {
       if (error.response.data) {
         alert(error.response.data.message);
       }
-      setLoadingLogin(false);
     }
+    setLoadingLogin(false);
   };
 
   const logout = () => {
